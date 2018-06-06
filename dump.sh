@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-PATH="${PATH}:/c/OSPanel/modules/database/MySQL-5.7-x64/bin/"
-
 set -e
 
 #########################################
@@ -265,10 +263,10 @@ do
     info "Start dump \"${name}\" database"
 
     file="${O_DIRECTORY}/test/${name}.sql.gz"
-    yearly="${O_DIRECTORY}/yearly/`date +\%Y`.sql.gz"
-    monthly="${O_DIRECTORY}/monthly/`date +\%M`.sql.gz"
-    daily="${O_DIRECTORY}/daily/`date +\%u`.sql.gz"
-    hourly="${O_DIRECTORY}/hourly/`date +\%H`.sql.gz"
+    yearly="${O_DIRECTORY}/yearly/${name}_`date +\%Y`.sql.gz"
+    monthly="${O_DIRECTORY}/monthly/${name}_`date +\%M`.sql.gz"
+    daily="${O_DIRECTORY}/daily/${name}_`date +\%u`.sql.gz"
+    hourly="${O_DIRECTORY}/hourly/${name}_`date +\%H`.sql.gz"
 
     remove_file_if_exists ${file}
     dump ${name} ${file}
