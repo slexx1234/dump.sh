@@ -15,12 +15,11 @@
 
 | Опция           | По умолчанию | Обязательно? | Описание                                       |
 | --------------- | ------------ | ------------ | ---------------------------------------------- |
-| -d, --directory |              | Да           | В этой директории будут храниться дампы        |
+| -r, --root      |              | Да           | В этой директории будут храниться дампы        |
 | -u, --user      |              | Да           | Имя пользователя MySQL                         |
 | -p, --password  | null         | Нет          | Пароль MySQL                                   |
-| -h, --host      | localhost    | Нет          | Хост MySQL                                     |
-| -p, --port      | 3306         | Нет          | Порт MySQL                                     |
-| -n, --name      | ()           | Нет          | Имя баз данных MySQL (Можно указать несколько) |
+| -h, --host      | localhost    | Нет          | Хост MySQL, порт через двоеточие               |
+| -d, --database  | ()           | Нет          | Имя баз данных MySQL (Можно указать несколько) |
 
 # Установка 
 
@@ -42,9 +41,10 @@ $ crontab -e
 И добавить что то вроде:
 
 ```bash
-@hourly /root/dump.sh/dump.sh -d=/root/dumps -u=MYSQL_USER -p=MYSQL_PASSWORD -n=DATABASE_ONE -n=DATABASE_TWO
+@hourly /root/dump.sh/dump.sh -r=/root/dumps -u=MYSQL_USER -p=MYSQL_PASSWORD -d=DATABASE_ONE -d=DATABASE_TWO
 ```
 
 Это всё! Пример выше будет делать дампы двух баз `MySQL` каждый час.
 
 > Для дампов следует создать пользователя только с read-only правами.
+

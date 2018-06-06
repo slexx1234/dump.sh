@@ -71,12 +71,11 @@ command_help () {
     nl
     text "Options:"
     nl
-    echo -e "  ${C_INFO}-d or --directory${C_RESET}  - Directory to save dumps ${C_ERROR}(required)${C_RESET}"
+    echo -e "  ${C_INFO}-r or --root${C_RESET}       - Directory to save dumps ${C_ERROR}(required)${C_RESET}"
     echo -e "  ${C_INFO}-u or --user${C_RESET}       - MySQL user name ${C_ERROR}(required)${C_RESET}"
     echo -e "  ${C_INFO}-p or --password${C_RESET}   - MySQL password ${C_SUCCESS}(nullable)${C_RESET}"
     echo -e "  ${C_INFO}-h or --host${C_RESET}       - MySQL host ${C_SUCCESS}(default: localhost)${C_RESET}"
-    echo -e "  ${C_INFO}-p or --port${C_RESET}       - MySQL port ${C_SUCCESS}(default: 3306)${C_RESET}"
-    echo -e "  ${C_INFO}-n or --name${C_RESET}       - MySQL databases"
+    echo -e "  ${C_INFO}-d or --database${C_RESET}   - MySQL databases"
     exit 0
 }
 
@@ -117,7 +116,7 @@ NAMES=()
 for i in "$@"
 do
 case $i in
-    -d=*|--directory=*)
+    -r=*|--root=*)
     # Trim slash
     d="${i#*=}"
     [[ ${d:length-1:1} == "/" ]] && d=${d:0:length-1}; :
@@ -137,15 +136,12 @@ case $i in
 
     -h=*|--host=*)
     readonly O_HOST="${i#*=}"
+    readonly O_IP="${O_HOST%%:*}"
+    readonly O_PORT="${O_HOST##*:}"
     shift
     ;;
 
-    -P=*|--port=*)
-    readonly O_PORT="${i#*=}"
-    shift
-    ;;
-
-    -n=*|--name=*)
+    -d=*|--database=*)
     NAMES=( "${NAMES[@]}" "${i#*=}" )
     shift
     ;;
@@ -196,7 +192,7 @@ copy_file () {
 dump () {
     if ! [ -z ${O_PASSWORD} ]
     then
-        if ! mysqldump --user=${O_USER} --host=${O_HOST} --port=${O_PORT} --password=${O_PASSWORD} ${1} | gzip > ${2}
+        if ! mysqldump --user=${O_USER} --host=${O_IP} --port=${O_PORT} --password=${O_PASSWORD} ${1} | gzip > ${2}
         then
             return 1
         fi
@@ -234,9 +230,9 @@ then
     exit ${E_INVALID_OPTION}
 fi
 
-if [ -z ${O_HOST} ]
+if [ -z ${O_IP} ]
 then
-    readonly O_HOST="localhost"
+    readonly O_IP="localhost"
 fi
 
 if [ -z ${O_PORT} ]
