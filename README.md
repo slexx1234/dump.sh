@@ -46,6 +46,6 @@ $ crontab -e
 @hourly /root/dump.sh/dump.sh -d=/root/dumps -u=MYSQL_USER -p=MYSQL_PASSWORD -n=DATABASE_ONE -n=DATABASE_TWO
 ```
 
-Это всё! Пример выше будет делать дампы двух баз `MySQL` каждые 2 часа.
+Это всё! Пример выше будет делать дампы двух баз `MySQL` каждый час.
 
 > Для дампов следует создать пользователя только с read-only правами.
