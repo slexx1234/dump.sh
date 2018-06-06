@@ -111,7 +111,7 @@ fi
 # Parse options
 #########################################
 
-NAMES=()
+DATABASES=()
 
 for i in "$@"
 do
@@ -142,7 +142,7 @@ case $i in
     ;;
 
     -d=*|--database=*)
-    NAMES=( "${NAMES[@]}" "${i#*=}" )
+    DATABASES=( "${DATABASES[@]}" "${i#*=}" )
     shift
     ;;
 
@@ -253,17 +253,17 @@ make_directory_if_not_exists ${O_DIRECTORY}/hourly
 # Run
 #########################################
 
-for name in "${NAMES[@]}"
+for database in "${DATABASES[@]}"
 do
-    info "Start dump \"${name}\" database"
+    info "Start dump \"${database}\" database"
 
-    file="${O_DIRECTORY}/test/${name}.sql.gz"
-    monthly="${O_DIRECTORY}/monthly/${name}_`date +\%Y_\%M`.sql.gz"
-    daily="${O_DIRECTORY}/daily/${name}_`date +\%u`.sql.gz"
-    hourly="${O_DIRECTORY}/hourly/${name}_`date +\%H`.sql.gz"
+    file="${O_DIRECTORY}/test/${database}.sql.gz"
+    monthly="${O_DIRECTORY}/monthly/${database}_`date +\%Y_\%M`.sql.gz"
+    daily="${O_DIRECTORY}/daily/${database}_`date +\%u`.sql.gz"
+    hourly="${O_DIRECTORY}/hourly/${database}_`date +\%H`.sql.gz"
 
     remove_file_if_exists ${file}
-    dump ${name} ${file}
+    dump ${database} ${file}
 
     # Check size
     if ! [ -s ${file} ]
