@@ -249,7 +249,6 @@ fi
 #########################################
 
 make_directory_if_not_exists ${O_DIRECTORY}/test
-make_directory_if_not_exists ${O_DIRECTORY}/yearly
 make_directory_if_not_exists ${O_DIRECTORY}/monthly
 make_directory_if_not_exists ${O_DIRECTORY}/daily
 make_directory_if_not_exists ${O_DIRECTORY}/hourly
@@ -263,8 +262,7 @@ do
     info "Start dump \"${name}\" database"
 
     file="${O_DIRECTORY}/test/${name}.sql.gz"
-    yearly="${O_DIRECTORY}/yearly/${name}_`date +\%Y`.sql.gz"
-    monthly="${O_DIRECTORY}/monthly/${name}_`date +\%M`.sql.gz"
+    monthly="${O_DIRECTORY}/monthly/${name}_`date +\%Y_\%M`.sql.gz"
     daily="${O_DIRECTORY}/daily/${name}_`date +\%u`.sql.gz"
     hourly="${O_DIRECTORY}/hourly/${name}_`date +\%H`.sql.gz"
 
@@ -280,12 +278,10 @@ do
     fi
 
     # Remove old files and copies
-    remove_file_if_exists ${yearly}
     remove_file_if_exists ${monthly}
     remove_file_if_exists ${daily}
     remove_file_if_exists ${hourly}
 
-    copy_file ${file} ${yearly}
     copy_file ${file} ${monthly}
     copy_file ${file} ${daily}
     copy_file ${file} ${hourly}
