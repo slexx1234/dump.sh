@@ -200,7 +200,7 @@ dump () {
         return 0
     fi
 
-    if ! mysqldump --user=${O_USER} --host=${O_HOST} --port=${O_PORT} ${1} | gzip > ${2}
+    if ! mysqldump --user=${O_USER} --host=${O_IP} --port=${O_PORT} ${1} | gzip > ${2}
     then
         return 1
     fi
