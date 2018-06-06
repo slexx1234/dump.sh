@@ -74,7 +74,7 @@ command_help () {
     echo -e "  ${C_INFO}-r or --root${C_RESET}       - Directory to save dumps ${C_ERROR}(required)${C_RESET}"
     echo -e "  ${C_INFO}-u or --user${C_RESET}       - MySQL user name ${C_ERROR}(required)${C_RESET}"
     echo -e "  ${C_INFO}-p or --password${C_RESET}   - MySQL password ${C_SUCCESS}(nullable)${C_RESET}"
-    echo -e "  ${C_INFO}-h or --host${C_RESET}       - MySQL host ${C_SUCCESS}(default: localhost)${C_RESET}"
+    echo -e "  ${C_INFO}-h or --host${C_RESET}       - MySQL host ${C_SUCCESS}(default: localhost:3306)${C_RESET}"
     echo -e "  ${C_INFO}-d or --database${C_RESET}   - MySQL databases"
     exit 0
 }
