@@ -48,3 +48,8 @@ $ crontab -e
 
 > Для дампов следует создать пользователя только с read-only правами.
 
+```mysql
+CREATE USER 'USER_NAME'@'localhost' IDENTIFIED BY 'PASSWORD';
+GRANT SELECT, LOCK TABLES ON DATABASE_NAME.* TO 'USER_NAME'@'localhost';
+FLUSH PRIVILEGES;
+```
