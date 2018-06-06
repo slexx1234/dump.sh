@@ -258,7 +258,7 @@ do
     info "Start dump \"${database}\" database"
 
     file="${O_DIRECTORY}/test/${database}.sql.gz"
-    monthly="${O_DIRECTORY}/monthly/${database}_`date +\%Y_\%M`.sql.gz"
+    monthly="${O_DIRECTORY}/monthly/${database}_`date +\%Y_\%e`.sql.gz"
     daily="${O_DIRECTORY}/daily/${database}_`date +\%u`.sql.gz"
     hourly="${O_DIRECTORY}/hourly/${database}_`date +\%H`.sql.gz"
 
