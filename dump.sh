@@ -260,7 +260,7 @@ do
     file="${O_DIRECTORY}/test/${database}.sql.gz"
     monthly="${O_DIRECTORY}/monthly/${database}_`date +\%Y_\%e`.sql.gz"
     daily="${O_DIRECTORY}/daily/${database}_`date +\%u`.sql.gz"
-    hourly="${O_DIRECTORY}/hourly/${database}_`date +\%H`.sql.gz"
+    hourly="${O_DIRECTORY}/hourly/${database}_`date +\%k`.sql.gz"
 
     remove_file_if_exists ${file}
     dump ${database} ${file}
